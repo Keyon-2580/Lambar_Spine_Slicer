@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 import Login from "../components/Login";
 import Main from "../components/Main";
 import Patient from "../components/Patient";
+import Diagnosis from  "../components/Diagnosis"
+import showImg from  "../components/showImg"
 
 
 Vue.use(VueRouter)
@@ -18,10 +20,10 @@ const router = new VueRouter({
             path:"/Main",
             name: 'main',
             component:Main,
-            meta: {
-                requireAuth: true,
-                keepAlive: true
-            }
+            // meta: {
+            //     requireAuth: true,
+            //     keepAlive: true
+            // }
         },
         {
             path:"/Patient",
@@ -31,7 +33,24 @@ const router = new VueRouter({
                 requireAuth: true,
                 keepAlive: true
             }
-        }
+        },
+        {
+            path:"/Diagnosis",
+            name:"diagnosis",
+            component:Diagnosis,
+            meta: {
+                requireAuth: true,
+                keepAlive: true
+            }
+
+        },
+        {
+            path:"/ImageShow",
+            name:"ImageShow",
+            component:showImg,
+
+
+        },
     ]
 
 })

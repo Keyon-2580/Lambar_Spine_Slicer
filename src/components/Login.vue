@@ -56,8 +56,8 @@
             //相当于以前的function data(){},这是es5之前的写法，新版本可以省略掉function
             return{
                 user:{
-                    username:'',
-                    password:'',
+                    username:'1234',
+                    password:'1234',
                     //为了登录方便，可以直接在这里写好用户名和密码的值
                 },
                 imgs: ["../assets/hhh.jpg","../assets/hhh.jpg"]
@@ -68,9 +68,9 @@
         methods:{
             doLogin(){//一点击登录按钮，这个方法就会执行
 
-                this.axios.get('http://127.0.0.1:8000/login?username=' + this.user.username + '&pwd='
+                this.axios.get('/login?username=' + this.user.username + '&pwd='
                         + this.user.password).then(res => {
-                    if(res.data.code === '0000'){
+                    if(res.data.code === '200'){
                         console.log(res.data)
                         sessionStorage.setItem('user_name', res.data.doctor_name);
                         sessionStorage.setItem('sex', res.data.doctor_sex);
@@ -108,11 +108,7 @@
                 console.log("xxx")
             },
 
-
-
         },
-
-
     }
 </script>
 <style>
