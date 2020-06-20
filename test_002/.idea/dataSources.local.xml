@@ -53,5 +53,10 @@
       <user-name>root</user-name>
       <schema-mapping />
     </data-source>
+    <data-source name="Django default" uuid="c19660f3-4499-4a1c-b39f-42affc499fc0">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" dbms="MYSQL" exact-version="0" />
+      <user-name>root</user-name>
+      <schema-mapping />
+    </data-source>
   </component>
 </project>

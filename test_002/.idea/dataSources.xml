@@ -43,5 +43,13 @@
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://localhost:3306/lumbar_test</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="Django default" uuid="c19660f3-4499-4a1c-b39f-42affc499fc0">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/test_002/settings.py</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://127.0.0.1:3306/lumbar_test</jdbc-url>
+    </data-source>
   </component>
 </project>

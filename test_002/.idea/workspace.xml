@@ -36,8 +36,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="HTML File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -52,14 +52,38 @@
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/demo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Read_Image" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="F:\大三下\项目实训\test_002\demo" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Django server.test_002">
+    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="test_002" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/demo" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/demo/test.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="test_002" type="Python.DjangoServer" factoryName="Django server">
       <module name="test_002" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -84,26 +108,18 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.test" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
       <list>
         <serviceView>
           <treeState>
-            <expand>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:lumbar_spine@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:lumbar_test@localhost" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-              <path>
-                <item name="services root" type="e789fda9:ObjectUtils$Sentinel" />
-                <item name="root:MySQL - doctor@localhost [2]" type="7427dc5b:ServiceModel$ServiceGroupNode" />
-              </path>
-            </expand>
+            <expand />
             <select />
           </treeState>
         </serviceView>
@@ -126,6 +142,14 @@
       <workItem from="1591962202383" duration="10771000" />
       <workItem from="1592009921011" duration="32714000" />
       <workItem from="1592096207295" duration="29722000" />
+      <workItem from="1592197814772" duration="11203000" />
+      <workItem from="1592311819927" duration="6599000" />
+      <workItem from="1592388082893" duration="11855000" />
+      <workItem from="1592454825102" duration="2021000" />
+      <workItem from="1592481378572" duration="2408000" />
+      <workItem from="1592530444499" duration="6243000" />
+      <workItem from="1592547367609" duration="14555000" />
+      <workItem from="1592613806621" duration="6443000" />
     </task>
     <servers />
   </component>
@@ -133,38 +157,46 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592099010508">
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592481444570">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1592099010508" />
-    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1591978036356">
+    <state x="361" y="71" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1592481444570" />
+    <state x="410" y="179" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1592229129903">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1591978036356" />
-    <state width="1493" height="163" key="GridCell.Tab.0.bottom" timestamp="1592154318604">
+    <state x="410" y="179" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.0.1536.824@0.0.1536.824" timestamp="1592229129903" />
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1592217286299">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592154318604" />
-    <state width="1493" height="163" key="GridCell.Tab.0.center" timestamp="1592154318604">
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1592217286299" />
+    <state width="1493" height="163" key="GridCell.Tab.0.bottom" timestamp="1592582442793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592154318604" />
-    <state width="1493" height="163" key="GridCell.Tab.0.left" timestamp="1592154318604">
+    <state width="1493" height="163" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1592582442793" />
+    <state width="1493" height="163" key="GridCell.Tab.0.center" timestamp="1592582442793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592154318604" />
-    <state width="1493" height="163" key="GridCell.Tab.0.right" timestamp="1592154318604">
+    <state width="1493" height="163" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1592582442793" />
+    <state width="1493" height="163" key="GridCell.Tab.0.left" timestamp="1592582442793">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="163" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592154318604" />
+    <state width="1493" height="163" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1592582442793" />
+    <state width="1493" height="163" key="GridCell.Tab.0.right" timestamp="1592582442793">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state width="1493" height="163" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1592582442793" />
     <state width="212" height="477" key="HiddenNamespacesPopup" timestamp="1592098709203">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="212" height="477" key="HiddenNamespacesPopup/0.0.1536.824@0.0.1536.824" timestamp="1592098709203" />
-    <state x="490" y="154" width="540" height="524" key="StructurePopup" timestamp="1592154306785">
+    <state x="270" y="54" key="SettingsEditor" timestamp="1592566563790">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="490" y="154" width="540" height="524" key="StructurePopup/0.0.1536.824@0.0.1536.824" timestamp="1592154306785" />
+    <state x="270" y="54" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1592566563790" />
+    <state x="490" y="154" width="561" height="524" key="StructurePopup" timestamp="1592329467780">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="490" y="154" width="561" height="524" key="StructurePopup/0.0.1536.824@0.0.1536.824" timestamp="1592329467780" />
     <state x="638" y="284" width="340" height="255" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1592051219032">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -173,9 +205,12 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="609" y="100" key="com.intellij.database.view.ui.DbObjectDialog/0.0.1536.824@0.0.1536.824" timestamp="1592051928390" />
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1592197815538">
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog" timestamp="1592613865751">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1592197815538" />
+    <state x="449" y="236" key="com.intellij.ide.util.TipDialog/0.0.1536.824@0.0.1536.824" timestamp="1592613865751" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/test_002$test.coverage" NAME="test Coverage Results" MODIFIED="1592566736460" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/demo" />
   </component>
 </project>

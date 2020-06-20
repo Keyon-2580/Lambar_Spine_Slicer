@@ -1,3 +1,4 @@
+<script src="../main.js"></script>
 <template>
     <div>
         <el-header style="margin-top: 0px; ">
@@ -7,7 +8,7 @@
             </h1>
             <el-button
                     @click = "refresh()"
-                    type="danger"
+                    type="success"
                     size = "small"
                     style="margin-right: 500px">
                 刷新</el-button>
@@ -81,23 +82,23 @@
                                 type="warning"
                                 size ="small"
                                 @click="checkPatient(scope.$index, scope.row)">
-                            编辑</el-button>
+                            查看</el-button>
                     </template>
                 </el-table-column>
             </el-table>
         </el-main>
             <el-dialog title="添加病人" :visible.sync="dialogFormVisible" >
-                <el-form :model="form">
-                    <el-form-item label="姓名" :label-width="formLabelWidth">
+                <el-form :model="form" :rules="rules" >
+                    <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
                         <el-input v-model="form.name" style="width: 220px" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="性别" :label-width="formLabelWidth">
+                    <el-form-item label="性别" :label-width="formLabelWidth" prop="sex">
                         <el-select v-model="form.sex" placeholder="请选择性别">
                             <el-option label="男" value="男"></el-option>
                             <el-option label="女" value="女"></el-option>
                         </el-select>
                     </el-form-item>
-                    <el-form-item label="年龄" :label-width="formLabelWidth">
+                    <el-form-item label="年龄" :label-width="formLabelWidth" prop="age">
                         <el-select v-model="form.age" placeholder="请选择年龄">
                             <el-option
                                     v-for="item in 90"
@@ -107,7 +108,7 @@
                             </el-option>
                         </el-select>
                         </el-form-item>
-                    <el-form-item label="出生日期" :label-width="formLabelWidth">
+                    <el-form-item label="出生日期" :label-width="formLabelWidth" prop="born">
                         <div class="block">
                             <span class="demonstration"></span>
                             <el-date-picker
@@ -117,16 +118,16 @@
                             </el-date-picker>
                         </div>
                     </el-form-item>
-                    <el-form-item label="民族" :label-width="formLabelWidth">
+                    <el-form-item label="民族" :label-width="formLabelWidth" prop="nation">
                         <el-input v-model="form.nation" style="width: 220px" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="职业" :label-width="formLabelWidth">
+                    <el-form-item label="职业" :label-width="formLabelWidth" prop="job">
                         <el-input v-model="form.job"  style="width: 220px" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="住址" :label-width="formLabelWidth">
+                    <el-form-item label="住址" :label-width="formLabelWidth" prop="address">
                         <el-input v-model="form.address" style="width: 220px" autocomplete="off"></el-input>
                     </el-form-item>
-                    <el-form-item label="过敏史" :label-width="formLabelWidth" @keydown.enter.native="add_patient">
+                    <el-form-item label="过敏史" :label-width="formLabelWidth" @keydown.enter.native="add_patient" prop="allergy">
                         <el-input v-model="form.allergy" style="width: 500px" autocomplete="off"></el-input>
                     </el-form-item>
 <!--                    <el-form-item label="医生ID" :label-width="formLabelWidth">-->
@@ -134,7 +135,7 @@
 <!--                    </el-form-item>-->
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false; cancel()">取 消</el-button>
+                    <el-button @click="dialogFormVisible = false; cancel()" >取 消</el-button>
                     <el-button type="primary" @click="dialogFormVisible = false; add_patient()">确 定</el-button>
                 </div>
             </el-dialog>
@@ -146,25 +147,17 @@
     export default {
         name:"Main",
         created(){
-            this.axios.get("http://127.0.0.1:8000/main?doctor_id=" + sessionStorage.getItem("doctor_id") )
-                .then(res =>{
-                    console.log(res.data),
-                        console.log(sessionStorage.getItem('doctor_id'))
-                    this.table = res.data
-                })
+            this.refresh()
         },
         methods: {
             handleDelete(index,row){
-                console.log(row)
                 console.log('patient_id 是', row['patient_id'])
-                console.log(row)
-                this.axios.get("http://127.0.0.1:8000/delete?patient_id=" + row.patient_id)
+                this.axios.get("/delete?patient_id=" + row.patient_id)
                     .then(res =>{
                         console.log(res)
                         this.refresh()
                     })
                 console.log(index,row)
-
             },
             checkPatient(index, row){
                 sessionStorage.removeItem('patient_id', row.patient_id)
@@ -181,7 +174,7 @@
                 this.$router.push('patient')
             },
             refresh(){
-                this.axios.get("http://127.0.0.1:8000/main?doctor_id=" + sessionStorage.getItem("doctor_id") )
+                this.axios.get("/refresh?doctor_id=" + sessionStorage.getItem("doctor_id") )
                     .then(res =>{
                         console.log(res.data),
                         this.table = res.data
@@ -189,22 +182,45 @@
             },
             add_patient(){
                 this.form['doc_id'] = sessionStorage.getItem('doctor_id')
-                this.axios.post(this.mainurl ,this.form,{
+                this.axios.post("/add_patient/" ,this.form,{
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
 
                 }).then(res=> {
-                    this.form={brand_right:0}
-                    console.log(res);
-                    this.refresh()
-                })
-                    .catch(function (error) {
+                    if(res.data.code === 200){
+                        this.form={brand_right:0}
+                        console.log(res);
+                        this.refresh();
+                        this.$message({
+                            type: 'success',
+                            message: '新建成功'
+                        });
+                        resetForm(this.form)
+                        {
+                            this.$refs[this.form].resetFields();
+                        }
+                    }else{
+                        this.$message({
+                            type: 'info',
+                            message: '创建失败'
+                        });
+                        resetForm(this.form)
+                        {
+                            this.$refs[this.form].resetFields();
+                        }
+                    }
+
+                }).catch(function (error) {
                         console.log(error);
                     });
             },
             cancel(){
                 this.form={brand_right:0}
+                resetForm(this.form)
+                {
+                    this.$refs[this.form].resetFields();
+                }
             },
             open(index,row) {
                 this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
@@ -228,9 +244,7 @@
         },
 
         data() {
-
             return {
-                mainurl: "http://127.0.0.1:8000/main/" ,
                 table:[],
                 doctor_name:sessionStorage.getItem("user_name"),
                 sex:sessionStorage.getItem('sex'),
@@ -251,10 +265,16 @@
                     born: '',
                     job: '',
                     allergy: '',
-                    // delivery: false,
-                    // type: [],
-                    // resource: '',
-                    // desc: ''
+                },
+                rules: {
+                    name: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    sex: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    nation: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    age: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    address: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    born: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    job: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    allergy: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
                 },
                 formLabelWidth: '120px'
             }
@@ -263,7 +283,7 @@
 </script>
 <style>
     .el-header, .el-footer {
-        background-color: #09ec91;
+        background-color: #9d09ec;
         color: #333;
         text-align: center;
         line-height: 50px;

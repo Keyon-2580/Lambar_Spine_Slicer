@@ -7,10 +7,12 @@ import VueAxios from 'vue-axios'
 import router from './config/router'
 import Mint from 'mint-ui';
 import 'mint-ui/lib/style.css';
-
+import imagvue from 'imagvue'
+Vue.use(imagvue)
 Vue.use(Mint);
 Vue.use(VueAxios, axios)
 Vue.use(ElementUI)
+
 Vue.prototype.$axios = axios
 // Vue.prototype.$toast = Toast
 Vue.config.productionTip = false
