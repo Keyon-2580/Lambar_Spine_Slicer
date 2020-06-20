@@ -1,0 +1,18 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>欢迎光临</title>
+</head>
+<body>
+<h3>{{ hobby }}</h3>
+<ul>
+    {% for user in doctor %}
+        <li>
+            {{ user.user_name }}
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>
