@@ -6,7 +6,7 @@
         <el-header>
 
             <h1>
-                <p > {{patient_name}}的病历表</p>
+                <p > {{table[0]['patient_name']}}的病历表</p>
             </h1>
 
         </el-header>
@@ -84,10 +84,9 @@
                             :before-upload="handleUpload"
                             :on-exceed="handleExceed"
                             :on-success="uploadSuccess"
-                            :on-error="uploadError"
                             :show-file-list = "true"
                             multiple
-                            accept = ""
+                            accept = ".gz"
                             :limit="5"
                             :file-list="fileList">
                         <el-button size="small" type="primary" >上传CT文件</el-button>
@@ -112,7 +111,6 @@
     export default {
         name: "Patient",
 
-
         activated(){
             this.refresh()
             console.log("已经刷新123")
@@ -127,7 +125,7 @@
                         this.textarea2 = this.table[0]['record_opinion']
                         this.record_slicer_file= this.table[0]['record_slicer_file']
 
-                        console.log( this.fileList)
+                        console.log( this.record_slicer_file)
                     })
             },
             //上传文件
@@ -146,8 +144,6 @@
                     if(res.data.code === 200 ){
                         console.log("上传成功")
                         this.slicer_file = res.data.data
-
-                        this.filenum += 1
                         this.$message({
                             type: 'success',
                             message: '上传成功'
@@ -191,19 +187,20 @@
 
             
             diagnosis(){
-                if(this.record_slicer_file == ''){
+                if(this.record_slicer_file == null){
                     this.$message({
                         type: 'info',
                         message: '请上传CT文件.'
                     });
-
                 }else{
-                    this.$router.push('diagnosis')
+                    //sessionStorage.setItem('patient_id',this.record.patient_id)
+                    //console.log(sessionStorage.getItem('patient_id'))
+                    this.$router.push('Diagnosis')
                 }
             },
             submit() {
                 this.readonly = true
-                if (this.record_slicer_file == '') {
+                if (this.record_slicer_file == null) {
                     this.$message({
                         type: 'info',
                         message: '请上传CT文件并诊断.'
@@ -234,13 +231,10 @@
                 this.readonly = false
             }
 
-
-
         },
         data(){
             return {
                 table: [],
-                patient_name: sessionStorage.getItem("patient_name"),
                 textarea: '',
                 textarea2: '',
                 fileList: [],

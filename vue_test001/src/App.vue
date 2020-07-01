@@ -13,10 +13,12 @@
 <script>
  //import Login from './components/Login.vue'
  //import Login from './components/Login.vue'
-
+ import imagvue from 'imagvue'
 export default {
   name: 'App',
-  // components: {
+   components: {
+      imagvue
+
   //     // eslint-disable-next-line vue/no-unused-components
   //     Login,
   //     //HelloWorld
@@ -24,7 +26,7 @@ export default {
   //   watch:{
   //       '$route'(){
   //       }
-  //   },
+     },
 }
 </script>
 

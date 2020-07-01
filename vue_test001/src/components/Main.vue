@@ -4,7 +4,7 @@
         <el-header style="margin-top: 0px; ">
 <!--            <img src="../assets/hhh.jpg"  style = "width:200px;, heigh:200px"  class ="image" />-->
             <h1>
-                系统
+                腰椎分割诊断系统
             </h1>
             <el-button
                     @click = "refresh()"
@@ -88,7 +88,7 @@
             </el-table>
         </el-main>
             <el-dialog title="添加病人" :visible.sync="dialogFormVisible" >
-                <el-form :model="form" :rules="rules" >
+                <el-form :model="form" :rules="rules"  ref="form">
                     <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
                         <el-input v-model="form.name" style="width: 220px" autocomplete="off"></el-input>
                     </el-form-item>
@@ -128,14 +128,14 @@
                         <el-input v-model="form.address" style="width: 220px" autocomplete="off"></el-input>
                     </el-form-item>
                     <el-form-item label="过敏史" :label-width="formLabelWidth" @keydown.enter.native="add_patient" prop="allergy">
-                        <el-input v-model="form.allergy" style="width: 500px" autocomplete="off"></el-input>
+                        <el-input v-model="form.allergy" style="width: 300px" autocomplete="off"></el-input>
                     </el-form-item>
 <!--                    <el-form-item label="医生ID" :label-width="formLabelWidth">-->
 <!--                        <el-input v-model="form.doc_id" style="width: 220px"  autocomplete="off" ></el-input>-->
 <!--                    </el-form-item>-->
                 </el-form>
                 <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false; cancel()" >取 消</el-button>
+                    <el-button @click="dialogFormVisible = false; resetForm('form')" >取 消</el-button>
                     <el-button type="primary" @click="dialogFormVisible = false; add_patient()">确 定</el-button>
                 </div>
             </el-dialog>
@@ -215,12 +215,9 @@
                         console.log(error);
                     });
             },
-            cancel(){
-                this.form={brand_right:0}
-                resetForm(this.form)
-                {
-                    this.$refs[this.form].resetFields();
-                }
+
+            resetForm(form) {
+                this.$refs[form].resetFields();
             },
             open(index,row) {
                 this.$confirm('This will permanently delete the file. Continue?', 'Warning', {
@@ -268,13 +265,13 @@
                 },
                 rules: {
                     name: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    sex: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    nation: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    age: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    address: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    born: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    job: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-                    allergy: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    sex: [{ required: true, message: 'Please input Activity sex', trigger: 'blur' }],
+                    nation: [{ required: true, message: 'Please input Activity nation', trigger: 'blur' }],
+                    age: [{ required: true, message: 'Please input Activity age', trigger: 'blur' }],
+                    address: [{ required: true, message: 'Please input Activity address', trigger: 'blur' }],
+                    born: [{ required: true, message: 'Please input Activity born', trigger: 'blur' }],
+                    job: [{ required: true, message: 'Please input Activity job', trigger: 'blur' }],
+                    allergy: [{ required: true, message: 'Please input Activity allergy', trigger: 'blur' }],
                 },
                 formLabelWidth: '120px'
             }

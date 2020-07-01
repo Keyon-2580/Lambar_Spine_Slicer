@@ -1,5 +1,4 @@
 <template>
-
     <div>
         <el-button @click="c1">查看原始图像</el-button>
         <el-button @click="c2">查看预测结果</el-button>

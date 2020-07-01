@@ -5,6 +5,7 @@ import Main from "../components/Main";
 import Patient from "../components/Patient";
 import Diagnosis from  "../components/Diagnosis"
 import showImg from  "../components/showImg"
+import STL from "../components/STL"
 
 
 Vue.use(VueRouter)
@@ -14,16 +15,22 @@ const router = new VueRouter({
         {
             path:"/",
             name:"login",
-            component:Login
+            component:Login,
+            meta: {
+                requireAuth: true,
+                keepAlive: true,
+                title:'腰椎分割系统登录'
+            }
         },
         {
             path:"/Main",
             name: 'main',
             component:Main,
-            // meta: {
-            //     requireAuth: true,
-            //     keepAlive: true
-            // }
+            meta: {
+                requireAuth: true,
+                keepAlive: true,
+                title:'腰椎分割系统主页'
+            }
         },
         {
             path:"/Patient",
@@ -31,7 +38,8 @@ const router = new VueRouter({
             component:Patient,
             meta: {
                 requireAuth: true,
-                keepAlive: true
+                keepAlive: true,
+                title:'病人资料'
             }
         },
         {
@@ -40,7 +48,8 @@ const router = new VueRouter({
             component:Diagnosis,
             meta: {
                 requireAuth: true,
-                keepAlive: true
+                keepAlive: false,
+                title:'查看切片'
             }
 
         },
@@ -48,12 +57,25 @@ const router = new VueRouter({
             path:"/ImageShow",
             name:"ImageShow",
             component:showImg,
-
-
+        },
+        {
+            path:"/STL",
+            name:"STL",
+            component:STL,
         },
     ]
 
 })
+router.beforeEach((to, from, next) => {
+
+    /* 路由发生变化修改页面title */
+    if (to.meta.title) {
+        document.title = to.meta.title;
+    }
+    next();
+
+});
+
 export default router;
 
 

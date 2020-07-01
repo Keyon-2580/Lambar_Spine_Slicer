@@ -13,6 +13,7 @@
     "element-ui": "^2.13.2",
     "imagvue": "0.0.5",
     "mint-ui": "^1.0.2",
+    "three": "^0.117.1",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.5",
     "vue-router": "^3.3.3"

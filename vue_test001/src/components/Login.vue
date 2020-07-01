@@ -1,10 +1,11 @@
 <template>
-    <div class = 'login_box'>
+
         <div style="display: flex;justify-content: center;margin-top: 150px">
             <el-carousel indicator-position="outside" style="width: 800px; heigh:250px; position: absolute;
-      left: 50%; top: 10%; transform: translateX(-50%) translateY(-20%)">
-                <el-carousel-item v-for="(img, index) in imgs" :key="index">
-                    <img src="../assets/hhh.jpg"  class ="image" />
+                    left: 50%; top: 10%; transform: translateX(-50%) translateY(-20%)">
+                <el-carousel-item v-for="index in imgs" :key="index.url">
+                    <img :src="index.url"  class ="image" />
+
                 </el-carousel-item>
             </el-carousel>
 
@@ -39,10 +40,52 @@
                     </tr>
                 </table>
             </el-card>
-<!--            <router-link to  = "/Main">user</router-link>-->
-<!--            <router-link to  = "/Login">hhh</router-link>-->
+            <el-dialog title="医生注册" :visible.sync="dialogFormVisible" >
+                <el-form :model="form" :rules="rules"  ref="form">
+                    <el-form-item label="姓名" :label-width="formLabelWidth" prop="name">
+                        <el-input v-model="form.name" style="width: 220px" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="性别" :label-width="formLabelWidth" prop="sex">
+                        <el-select v-model="form.sex" placeholder="请选择性别">
+                            <el-option label="男" value="男"></el-option>
+                            <el-option label="女" value="女"></el-option>
+                        </el-select>
+                    </el-form-item>
+
+                    <el-form-item label="账户" :label-width="formLabelWidth" prop="account">
+                        <el-input v-model="form.account" style="width: 220px" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="密码" :label-width="formLabelWidth" prop="pwd">
+                        <el-input v-model="form.pwd"  style="width: 220px" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="确认密码" :label-width="formLabelWidth" prop="pwd_0">
+                        <el-input v-model="form.pwd_0" style="width: 220px" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="手机号" :label-width="formLabelWidth" prop="tel">
+                        <el-input v-model="form.tel" style="width: 200px" autocomplete="off"></el-input>
+                    </el-form-item>
+                    <el-form-item label="部门" :label-width="formLabelWidth" prop="department">
+                        <el-select v-model="form.department" placeholder="请选择部门">
+                            <el-option label="放射科" value="放射科"></el-option>
+                            <el-option label="骨外科" value="骨外科"></el-option>
+                            <el-option label="儿科" value="儿科"></el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="职务" :label-width="formLabelWidth" prop="job">
+                        <el-select v-model="form.job" placeholder="请选择职务">
+                            <el-option label="主任医师" value="主任医师"></el-option>
+                            <el-option label="副主任医师" value="副主任医师"></el-option>
+                            <el-option label="主治医师" value="主治医师"></el-option>
+                        </el-select>
+                    </el-form-item>
+                </el-form>
+                <div slot="footer" class="dialog-footer">
+                    <el-button @click="dialogFormVisible = false; resetForm('form')" >取 消</el-button>
+                    <el-button type="primary" @click="dialogFormVisible = false; submitForm('form')">确 定</el-button>
+                </div>
+            </el-dialog>
         </div>
-    </div>
+
 
 </template>
 <script>
@@ -60,8 +103,36 @@
                     password:'1234',
                     //为了登录方便，可以直接在这里写好用户名和密码的值
                 },
-                imgs: ["../assets/hhh.jpg","../assets/hhh.jpg"]
+                imgs: [
+                    { url: require("../assets/bg0.jpg") },
+                    { url: require("../assets/bg1.jpg") },
+
+                ],
                 //item["sss",'sss','dd','dd']
+                dialogFormVisible:false,
+                form: {
+                    name: '',
+                    sex: '',
+                    date1: '',
+                    date2: '',
+                    account: '',
+                    pwd: '',
+                    pwd_0: '',
+                    tel: '',
+                    department: '',
+                    job: '',
+                },
+                rules: {
+                    name: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
+                    sex: [{ required: true, message: 'Please input Activity sex', trigger: 'blur' }],
+                    account: [{ required: true, message: 'Please input Activity account', trigger: 'blur' }],
+                    pwd: [{ required: true, message: 'Please input Activity password', trigger: 'blur' }],
+                    pwd_0: [{ required: true, message: 'Please input Activity password_0', trigger: 'blur' }],
+                    tel: [{ required: true, message: 'Please input Activity tel', trigger: 'blur' }],
+                    department: [{ required: true, message: 'Please input Activity department', trigger: 'blur' }],
+                    job: [{ required: true, message: 'Please input Activity job', trigger: 'blur' }],
+                },
+                formLabelWidth: '120px'
             }
         },
 
@@ -103,10 +174,45 @@
             },
 
 
-
             regist(){
-                console.log("xxx")
+                this.dialogFormVisible=true
             },
+            submitForm(form) {
+                this.$refs[form].validate((valid) => {
+                    if (valid ) {
+                        console.log('---------------------')
+                        this.$axios.post('/regist/',this.form).then(
+                            res=>{
+                                if(res.data.code==200){
+                                    this.$message({
+                                        type: 'success',
+                                        message: '提交成功.'
+                                    });
+                                }
+                            }
+                        )
+                    } else if(this.form.pwd != this.form.pwd_0) {
+                        this.dialogFormVisible=true
+                        this.$message({
+                            type: 'info',
+                            message: '验证密码不对.'
+                        });
+                        return false;
+                    }
+                    else{
+                        this.dialogFormVisible=true
+                        this.$message({
+                            type: 'info',
+                            message: '有信息未填写.'
+                        });
+                        return false;
+                    }
+                });
+            },
+            resetForm(form) {
+                this.$refs[form].resetFields();
+            },
+
 
         },
     }
