@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>xxx</title>
+</head>
+<body>
+<script src = "https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+<div id = "app">
+    <h1>site: {{site}}}</h1>>
+    <ul>
+        <li v-for="item in list">{{item}}</li>
+    </ul>
+    <h2>count:{{count}}</h2>
+    <button v-on:click="add">+</button>
+</div>>
+<script>
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            site:"hhhh",
+            list:["xxx","hhh","ddd","www"],
+            count:1
+        },
+        methods:{
+            add:function(){
+                console.log("sss")
+            }
+        }
+
+    })
+</script>>
+
+</body>
+</html>

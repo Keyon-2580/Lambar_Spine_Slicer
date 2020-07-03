@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>WebViewer - STL</title>
+    <h1>
+        病人{{ patient_id }}腰椎模型生成
+    </h1>
+    <meta charset="utf-8">
+</head>
+<body onload="threestart()">
+<script src="../static/threejs/three.js"></script>
+<script src="../static/threejs/loaders/STLLoader.js"></script>
+<script src="../static/threejs/OrbitControls.js"></script>
+<script src="../static/threejs/dat.gui.min.js"></script>
+<script>
+    var container;
+
+    var camera, cameraTarget, scene, renderer;
+
+    var cameraType = 1;
+    var perspectiveAngle = 45;
+    var cameraPosX = 200;
+    var cameraPosY = 200;
+    var cameraPosZ = 200;
+    var cameraTargetX = 0;
+    var cameraTargetY = 0;
+    var cameraTargetZ = 0;
+    var upVectorX = 0;
+    var upVectorY = 1;
+    var upVectorZ = 0;
+    var cameralScale = 5;
+
+    //gui
+    var gui = new dat.GUI();
+    var controls = new function () {
+        this.bgColor = "#ffffff";
+        this.ambientColor = "#ffffff";
+        this.NerveRoot = true;
+        //this.color1 = "#d4143c";
+        this.IntervertebralDisk = true;
+        this.DuralSac = true;
+    }
+    gui.addColor(controls, 'bgColor').name("背景颜色");
+    gui.addColor(controls, 'ambientColor');
+    gui.add(controls, 'NerveRoot').name("神经根");
+    //gui.addColor(controls, 'color1').name("颜色");
+    gui.add(controls, 'IntervertebralDisk').name("椎间盘");
+    gui.add(controls, 'DuralSac').name("硬膜囊");
+
+    function threestart(){
+        init();
+        load();
+        animate();
+    }
+
+
+    //
+    function getQueryStringByName(name){
+        var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i"));
+        if(result == null || result.length < 1){
+            return "";
+        }
+        return result[1];
+    }
+
+    //渲染初始化
+    function init() {
+        container = document.createElement( 'div' );
+        document.body.appendChild( container );
+
+        // set camera
+        var cameraTypeStr = getQueryStringByName('cameraType');
+        cameraType = cameraTypeStr == "" ? cameraType : parseInt(cameraTypeStr);
+        var perspectiveAngleStr = getQueryStringByName('perspectiveAngle');
+        perspectiveAngle = perspectiveAngleStr == "" ? perspectiveAngle : parseFloat(perspectiveAngleStr);
+        var cameraPosXStr = getQueryStringByName('cameraPosX');
+        cameraPosX = cameraPosXStr == "" ? cameraPosX : parseFloat(cameraPosXStr) * cameralScale;
+        var cameraPosYStr = getQueryStringByName('cameraPosY');
+        cameraPosY = cameraPosYStr == "" ? cameraPosY : parseFloat(cameraPosYStr) * cameralScale;
+        var cameraPosZStr = getQueryStringByName('cameraPosZ');
+        cameraPosZ = cameraPosZStr == "" ? cameraPosZ : parseFloat(cameraPosZStr) * cameralScale;
+        var cameraTargetXStr = getQueryStringByName('cameraTargetX');
+        cameraTargetX = cameraTargetXStr == "" ? cameraTargetX : parseFloat(cameraTargetXStr) * cameralScale;
+        var cameraTargetYStr = getQueryStringByName('cameraTargetY');
+        cameraTargetY = cameraTargetYStr == "" ? cameraTargetY : parseFloat(cameraTargetYStr) * cameralScale;
+        var cameraTargetZStr = getQueryStringByName('cameraTargetZ');
+        cameraTargetZ = cameraTargetZStr == "" ? cameraTargetZ : parseFloat(cameraTargetZStr) * cameralScale;
+        var upVectorXStr = getQueryStringByName('upVectorX');
+        upVectorX = upVectorXStr == "" ? upVectorX : parseFloat(upVectorXStr) * cameralScale;
+        var upVectorYStr = getQueryStringByName('upVectorY');
+        upVectorY = upVectorYStr == "" ? upVectorY : parseFloat(upVectorYStr) * cameralScale;
+        var upVectorZStr = getQueryStringByName('upVectorZ');
+        upVectorZ = upVectorZStr == "" ? upVectorZ : parseFloat(upVectorZStr) * cameralScale;
+        if(cameraType == 0) {
+            camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 1, 10000 );
+        }
+        else {
+            camera = new THREE.PerspectiveCamera( perspectiveAngle, window.innerWidth / window.innerHeight, 1, 10000 );
+        }
+        camera.position.set( cameraPosX, cameraPosY, cameraPosZ);
+        camera.up.set(upVectorX, upVectorY, upVectorZ);
+        cameraTarget = new THREE.Vector3( cameraTargetX, cameraTargetY, cameraTargetZ );
+        camera.lookAt( cameraTarget );
+        scene = new THREE.Scene();
+
+        //scene.fog = new THREE.Fog( 0xffffff, 1, 10000 );
+
+
+        // lights
+        scene.add( new THREE.AmbientLight( 0x333333 ) );
+        addDirectionalLight(-1, 1, 1, 0xFFFFFF, 1.35);
+        addDirectionalLight(1, -1, -1, 0xFFFFFF, 1);
+
+        // renderer
+        renderer = new THREE.WebGLRenderer( { antialias: true } );
+        renderer.setClearColor( 0xFFFFFF );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        renderer.gammaInput = true;
+        renderer.gammaOutput = true;
+        renderer.shadowMapEnabled = true;
+        renderer.shadowMapCullFace = THREE.CullFaceBack;
+
+        container.appendChild( renderer.domElement );
+
+        // orbit control
+        control = new THREE.OrbitControls( camera, renderer.domElement );
+
+        // events
+        window.addEventListener( 'resize', onWindowResize, false );
+        //animate();
+    }
+
+    var mesh1 = new THREE.Mesh();
+    var mesh2 = new THREE.Mesh();
+    var mesh3 = new THREE.Mesh();
+
+
+    function load(){
+        // load file
+        var loader1 = new THREE.STLLoader();
+
+        //mesh1 神经根
+        //var modelName = getQueryStringByName('modelName');
+
+        loader1.load( {{aaa|safe}}, function ( geometry ) {
+            var material = new THREE.MeshPhongMaterial( { color: 0xDC143C, transparent : false ,opacity: 1} );
+            mesh1 = new THREE.Mesh( geometry, material );
+            mesh1.castShadow = true;
+            mesh1.receiveShadow = true;
+            scene.add( mesh1 );
+
+        } );
+
+        //mesh2 椎间盘
+        loader1.load( {{bbb|safe}}, function ( geometry ) {
+            var material = new THREE.MeshPhongMaterial( { color: 0x00FF7F, transparent : false ,opacity: 1} );
+            mesh2 = new THREE.Mesh( geometry, material );
+            mesh2.castShadow = true;
+            mesh2.receiveShadow = true;
+            scene.add( mesh2 );
+        } );
+
+        //mesh3 硬膜囊
+        loader1.load( {{ccc|safe}}, function ( geometry ) {
+            var material = new THREE.MeshPhongMaterial( { color: 0x0000FF, transparent : false ,opacity: 1} );
+            mesh3 = new THREE.Mesh( geometry, material );
+            mesh3.castShadow = true;
+            mesh3.receiveShadow = true;
+            scene.add( mesh3 );
+        } );
+    }
+
+
+    function addDirectionalLight( x, y, z, color, intensity ) {
+        var directionalLight = new THREE.DirectionalLight( color, intensity );
+        directionalLight.position.set( x, y, z )
+        scene.add( directionalLight );
+    }
+
+    function onWindowResize() {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+    }
+
+    function animate() {
+        renderer.setClearColor( controls.bgColor );
+        mesh1.visible = controls.NerveRoot;
+        mesh2.visible = controls.IntervertebralDisk;
+        mesh3.visible = controls.DuralSac;
+        //console.log(mesh1.material.color);
+        //mesh1.color = controls.color1;
+
+        render();
+        requestAnimationFrame( animate );
+
+    }
+
+    function render() {
+        renderer.render( scene, camera );
+    }
+</script>
+</body>
+</html>
